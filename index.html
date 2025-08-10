@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiolexa - چت‌بات هوشمند وردپرس با قدرت Gemini</title>
+    <meta name="description" content="با افزونه چت‌بات Aiolexa، وب‌سایت وردپرسی خود را به یک دستیار هوشمند ۲۴ ساعته مجهز کنید و با قدرت Google Gemini، پشتیبانی مشتریان را متحول سازید.">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #f97316;
+            --text-dark: #1e293b;
+            --text-light: #475569;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-Variable.woff2') format('woff2-variations');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 16px;
+            direction: rtl;
+            text-align: right;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--bg-light);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(248, 250, 252, 0.8);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: var(--bg-white);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        
+        #hero {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        #hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        #hero h1 span {
+            color: var(--primary-color);
+        }
+
+        #hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--bg-white);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: right;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-card .icon {
+            color: var(--primary-color);
+            width: 48px;
+            height: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        #how-it-works {
+            background-color: var(--bg-white);
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            position: relative;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step .icon-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #e0e7ff;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            border: 4px solid var(--bg-white);
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+        
+        .step .icon {
+             width: 40px;
+             height: 40px;
+        }
+        
+        .step h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        #demo {
+            background-color: #eef2ff;
+        }
+
+        .demo-container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .demo-text {
+            flex: 1;
+        }
+
+        .demo-text h2 {
+             font-size: 36px;
+             font-weight: 700;
+             color: var(--text-dark);
+             margin-bottom: 20px;
+        }
+        
+        .demo-text p {
+             font-size: 18px;
+             margin-bottom: 30px;
+        }
+
+        .demo-chat-window {
+            flex: 1;
+            max-width: 400px;
+            height: 500px;
+            background-color: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .chat-header {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        .chat-message.bot {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            border-bottom-right-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .chat-message.user {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom-left-radius: 4px;
+            align-self: flex-end;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background-color: #94a3b8;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: bounce 1s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        .chat-actions {
+            padding: 10px 20px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .chat-action-button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .chat-action-button:hover {
+            background-color: #e0e7ff;
+        }
+        
+        .chat-action-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        #faq {
+            background-color: var(--bg-white);
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            padding: 0 10px;
+        }
+        
+        .faq-answer p {
+            margin: 0;
+            padding-top: 15px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 10px;
+        }
+        
+        .faq-toggle {
+            font-size: 24px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        #cta {
+            background-color: var(--primary-dark);
+            color: white;
+            text-align: center;
+        }
+
+        #cta h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        footer {
+            background-color: var(--text-dark);
+            color: #cbd5e1;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links, .navbar .btn {
+                display: none; /* Simple hiding for mobile, can be replaced with a hamburger menu */
+            }
+            #hero h1 { font-size: 36px; }
+            #hero p { font-size: 16px; }
+            .section-title h2 { font-size: 28px; }
+            .steps-container { flex-direction: column; align-items: center; }
+            .demo-container { flex-direction: column; }
+            .demo-chat-window { height: 450px; }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="#" class="logo">Aiolexa</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#features">ویژگی‌ها</a></li>
+                    <li><a href="#how-it-works">نحوه کار</a></li>
+                    <li><a href="#demo">دمو</a></li>
+                    <li><a href="#faq">سوالات متداول</a></li>
+                </ul>
+            </nav>
+            <a href="#cta" class="btn btn-primary">دریافت افزونه</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container">
+                <h1>وب‌سایت وردپرسی خود را به یک <span>دستیار هوشمند</span> مجهز کنید</h1>
+                <p>با قدرت Google Gemini، به سوالات کاربران فوراً پاسخ دهید، فروش خود را افزایش دهید و پشتیبانی مشتریان را ۲۴ ساعته و بدون وقفه متحول کنید.</p>
+                <div class="hero-actions">
+                    <a href="#demo" class="btn btn-primary">مشاهده دموی زنده</a>
+                    <a href="#cta" class="btn btn-secondary">شروع استفاده</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>چرا چت‌بات Aiolexa؟</h2>
+                    <p>ما بهترین تکنولوژی‌ها را ترکیب کرده‌ایم تا ابزاری قدرتمند و در عین حال ساده برای رشد کسب‌وکار شما فراهم کنیم.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.375a6.375 6.375 0 006.375-6.375h.038a6.375 6.375 0 00-6.375-6.375a6.375 6.375 0 00-6.375 6.375h-.038a6.375 6.375 0 006.375 6.375zM12 21a8.25 8.25 0 01-8.25-8.25H3a9.75 9.75 0 019-9.75 9.75 9.75 0 019 9.75h-.75A8.25 8.25 0 0112 21z" /></svg>
+                        <h3>موتور هوشمند Gemini</h3>
+                        <p>پاسخ‌های دقیق، طبیعی و به‌روز با استفاده از پیشرفته‌ترین مدل زبان گوگل (`gemini-2.5-flash`).</p>
+                    </div>
+                    <div class="feature-card">
+                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                        <h3>پایگاه دانش سفارشی</h3>
+                        <p>ربات را با محتوای وب‌سایت خودتان آموزش دهید تا پاسخ‌هایی کاملاً مرتبط با کسب‌وکار شما ارائه دهد.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.75 9.75 0 10-12.013-1.482l-2.094 2.093a.75.75 0 001.06 1.06l2.094-2.093A9.703 9.703 0 0012 21.75c1.45 0 2.82-.31 4.093-.872z" /></svg>
+                        <h3>پشتیبانی انسانی یکپارچه</h3>
+                        <p>کاربران می‌توانند هر لحظه درخواست صحبت با اپراتور انسانی را ثبت کنند و شما از طریق پنل وردپرس پاسخ دهید.</p>
+                    </div>
+                     <div class="feature-card">
+                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
+                        <h3>نصب و راه‌اندازی آسان</h3>
+                        <p>بدون نیاز به دانش کدنویسی، افزونه را در کمتر از ۵ دقیقه نصب و فعال کنید.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.47 2.118a2.25 2.25 0 01-2.47-2.118c0-.62.28-1.2.752-1.57a3.755 3.755 0 012.21-1.128 3.75 3.75 0 014.288 1.128zm7.56-2.218a3.75 3.75 0 00-4.288-1.128 3.755 3.755 0 00-2.21 1.128 3.001 3.001 0 015.78 1.128 2.25 2.25 0 002.47 2.118 2.25 2.25 0 002.47-2.118c0-.62-.28-1.2-.752-1.57z" /></svg>
+                        <h3>شخصی‌سازی کامل ظاهر</h3>
+                        <p>رنگ‌بندی و موقعیت ویجت چت را مطابق با هویت بصری برند و وب‌سایت خود تغییر دهید.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <h3>پاسخگویی ۲۴/۷</h3>
+                        <p>رضایت مشتریان را افزایش دهید و حتی خارج از ساعات کاری، فرصت‌های فروش را از دست ندهید.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <div class="container">
+                <div class="section-title">
+                    <h2>راه‌اندازی در کمتر از ۵ دقیقه</h2>
+                    <p>فرآیند فعال‌سازی چت‌بات در سایت شما بسیار ساده و سریع است.</p>
+                </div>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="icon-container">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                        </div>
+                        <h3>۱. نصب افزونه</h3>
+                        <p>افزونه را از مخزن وردپرس یا وب‌سایت ما دانلود و مانند هر افزونه دیگری نصب و فعال کنید.</p>
+                    </div>
+                     <div class="step">
+                        <div class="icon-container">
+                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
+                        </div>
+                        <h3>۲. وارد کردن کلید API</h3>
+                        <p>کلید API رایگان خود را از Google AI Studio دریافت کرده و در پنل تنظیمات افزونه وارد نمایید.</p>
+                    </div>
+                     <div class="step">
+                        <div class="icon-container">
+                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.25a14.98 14.98 0 00-5.84 7.38m5.84 2.58v-4.8m0 4.8a14.98 14.98 0 01-6.16-12.12A14.98 14.98 0 019.63 2.25a14.98 14.98 0 015.84 7.38m-5.84 2.58H1.63m13.96 0A14.98 14.98 0 019.63 2.25M19.5 14.25v4.8m-4.8-4.8a14.98 14.98 0 01-3.36 6.15" /></svg>
+                        </div>
+                        <h3>۳. فعال‌سازی و لذت بردن</h3>
+                        <p>چت‌بات شما آماده است! ویجت چت به صورت خودکار در سایت شما نمایش داده می‌شود و آماده پاسخگویی است.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo">
+            <div class="container demo-container">
+                <div class="demo-text">
+                    <h2>همین حالا امتحان کنید!</h2>
+                    <p>قدرت پاسخگویی آنی و هوشمند را از نزدیک تجربه کنید. با این دموی تعاملی، ببینید چت‌بات چگونه می‌تواند به سوالات متداول کاربران شما پاسخ دهد.</p>
+                </div>
+                <div class="demo-chat-window" id="chat-demo">
+                    <div class="chat-header">دستیار هوشمند Aiolexa</div>
+                    <div class="chat-body" id="chat-body">
+                        <!-- Messages will be injected here by JS -->
+                    </div>
+                    <div class="chat-actions" id="chat-actions">
+                        <!-- Action buttons will be injected here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq">
+            <div class="container" style="max-width: 800px;">
+                 <div class="section-title">
+                    <h2>سوالات متداول</h2>
+                    <p>پاسخ سوالات رایج در مورد افزونه را اینجا پیدا کنید.</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>آیا برای نصب به دانش برنامه‌نویسی نیاز دارم؟</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>خیر. این افزونه طوری طراحی شده که هر کسی با دانش پایه وردپرس بتواند آن را به راحتی نصب، پیکربندی و استفاده کند. هیچ نیازی به یک خط کدنویسی نیست.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <span>هزینه استفاده از Google Gemini API چقدر است؟</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>گوگل یک طرح رایگان بسیار سخاوتمندانه برای Gemini API ارائه می‌دهد که برای بسیاری از وب‌سایت‌های با ترافیک متوسط کافی است. برای اطلاعات دقیق‌تر در مورد قیمت‌گذاری، می‌توانید به وب‌سایت Google AI Studio مراجعه کنید.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <span>آیا این افزونه با قالب سایت من سازگار است؟</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>بله، افزونه ما با تمام قالب‌های استاندارد وردپرس که به درستی کدنویسی شده‌اند، سازگار است. ویجت چت به صورت یک عنصر شناور به سایت اضافه می‌شود و با طراحی شما تداخلی ایجاد نمی‌کند.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <span>آیا اطلاعات مکالمات کاربران امن است؟</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>بله. در صورت فعال‌سازی، تمام تاریخچه مکالمات به صورت امن در دیتابیس وردپرس **شما** ذخیره می‌شود و ما به هیچ‌یک از اطلاعات شما دسترسی نداریم. حریم خصوصی اولویت ماست.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta">
+            <div class="container">
+                <h2>آماده‌اید تا وب‌سایت خود را هوشمند کنید؟</h2>
+                <a href="#" class="btn btn-primary" style="background-color: white; color: var(--primary-color); padding: 15px 30px; font-size: 18px;">افزونه را همین حالا دریافت کنید</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Aiolexa - تمام حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Mock Chat Demo
+        const chatBody = document.getElementById('chat-body');
+        const chatActions = document.getElementById('chat-actions');
+        
+        const demoScenario = [
+            {
+                type: 'bot',
+                text: 'سلام! من دستیار هوشمند شما هستم. چطور می‌توانم کمکتان کنم؟',
+                actions: [
+                    { text: 'محصولات شما چیست؟', next: 1 },
+                    { text: 'ساعات کاری شما؟', next: 2 }
+                ]
+            },
+            {
+                type: 'user',
+                text: 'محصولات شما چیست؟',
+                responses: [
+                    {
+                        type: 'bot',
+                        text: 'ما افزونه‌های هوش مصنوعی برای وردپرس ارائه می‌دهیم که به رشد کسب‌وکار شما کمک می‌کنند. محصول اصلی ما همین چت‌بات هوشمند است.',
+                        actions: [
+                             { text: 'عالی! قیمت‌گذاری چطور است؟', next: 3 },
+                             { text: 'برگردیم به اول', next: 0 }
+                        ]
+                    }
+                ]
+            },
+            {
+                type: 'user',
+                text: 'ساعات کاری شما؟',
+                responses: [
+                    {
+                        type: 'bot',
+                        text: 'من به عنوان یک دستیار هوشمند، ۲۴ ساعته و ۷ روز هفته در خدمت شما هستم! اما تیم پشتیبانی انسانی ما از شنبه تا چهارشنبه، ساعت ۹ صبح تا ۵ بعد از ظهر پاسخگو هستند.',
+                        actions: [
+                            { text: 'محصولات شما چیست؟', next: 1 },
+                            { text: 'ممنون از راهنمایی', next: 4 }
+                        ]
+                    }
+                ]
+            },
+            {
+                type: 'user',
+                text: 'عالی! قیمت‌گذاری چطور است؟',
+                responses: [
+                     {
+                        type: 'bot',
+                        text: 'افزونه اصلی رایگان است و شما تنها هزینه استفاده از API گوگل را پرداخت می‌کنید که آن هم طرح رایگان دارد. برای ویژگی‌های پیشرفته، می‌توانید به وب‌سایت ما مراجعه کنید.',
+                        actions: [
+                            { text: 'برگردیم به اول', next: 0 }
+                        ]
+                    }
+                ]
+            },
+            {
+                type: 'user',
+                text: 'ممنون از راهنمایی',
+                 responses: [
+                     {
+                        type: 'bot',
+                        text: 'خواهش می‌کنم! اگر سوال دیگری داشتید، من اینجا هستم.',
+                        actions: [
+                            { text: 'برگردیم به اول', next: 0 }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        function addMessage(type, text) {
+            const messageEl = document.createElement('div');
+            messageEl.className = `chat-message ${type}`;
+            messageEl.textContent = text;
+            chatBody.appendChild(messageEl);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingEl = document.createElement('div');
+            typingEl.className = 'chat-message bot typing-indicator';
+            typingEl.innerHTML = '<span></span><span></span><span></span>';
+            chatBody.appendChild(typingEl);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return typingEl;
+        }
+
+        function updateActions(actions) {
+            chatActions.innerHTML = '';
+            if (actions) {
+                actions.forEach(action => {
+                    const button = document.createElement('button');
+                    button.className = 'chat-action-button';
+                    button.textContent = action.text;
+                    button.onclick = () => handleActionClick(action.next);
+                    chatActions.appendChild(button);
+                });
+            }
+        }
+        
+        function disableActions() {
+            const buttons = chatActions.querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+        }
+
+        function handleActionClick(nextNodeIndex) {
+            const userChoice = demoScenario[nextNodeIndex];
+            
+            disableActions();
+            addMessage('user', userChoice.text);
+            
+            const typingIndicator = showTypingIndicator();
+            
+            setTimeout(() => {
+                chatBody.removeChild(typingIndicator);
+                const botResponse = userChoice.responses[0];
+                addMessage('bot', botResponse.text);
+                updateActions(botResponse.actions);
+            }, 1500);
+        }
+
+        function startDemo() {
+            chatBody.innerHTML = '';
+            const initialStep = demoScenario[0];
+            addMessage(initialStep.type, initialStep.text);
+            updateActions(initialStep.actions);
+        }
+
+        startDemo();
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

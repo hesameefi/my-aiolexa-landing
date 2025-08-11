@@ -7,14 +7,15 @@
     <meta name="description" content="با افزونه چت‌بات Aiolexa، وب‌سایت وردپرسی خود را به یک دستیار هوشمند ۲۴ ساعته مجهز کنید و با قدرت Google Gemini، پشتیبانی مشتریان را متحول سازید.">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary-color: #f97316;
-            --text-dark: #1e293b;
-            --text-light: #475569;
-            --bg-light: #f8fafc;
+            --primary-color: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary-color: #10b981;
+            --text-dark: #111827;
+            --text-light: #4b5563;
+            --bg-light: #f9fafb;
             --bg-white: #ffffff;
-            --border-color: #e2e8f0;
+            --border-color: #e5e7eb;
+            --font-sans: 'Vazirmatn', sans-serif;
         }
 
         @font-face {
@@ -27,28 +28,47 @@
 
         *, *::before, *::after {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        body {
-            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            background-color: var(--bg-light);
-            color: var(--text-light);
-            line-height: 1.7;
-            font-size: 16px;
-            direction: rtl;
-            text-align: right;
+        html {
             scroll-behavior: smooth;
         }
 
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 16px;
+            direction: rtl;
+            text-align: right;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle at center, rgba(79, 70, 229, 0.05), transparent 40%);
+            z-index: -1;
+            animation: background-pulse 10s infinite alternate;
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
-        header {
-            background-color: var(--bg-light);
+        
+        /* --- Header --- */
+        .main-header {
+            background-color: rgba(249, 250, 251, 0.8);
             padding: 20px 0;
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -56,7 +76,6 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            background-color: rgba(248, 250, 252, 0.8);
         }
 
         .navbar {
@@ -66,18 +85,16 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             color: var(--primary-dark);
             text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             list-style: none;
-            margin: 0;
-            padding: 0;
         }
         
         .nav-links a {
@@ -87,63 +104,55 @@
             transition: color 0.3s ease;
         }
         
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
+        .nav-links a:hover { color: var(--primary-color); }
 
         .btn {
-            padding: 12px 24px;
+            padding: 12px 28px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            display: inline-block;
         }
 
         .btn-primary {
             background-color: var(--primary-color);
             color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
         }
         
         .btn-primary:hover {
             background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(79, 70, 229, 0.3);
         }
         
-        .btn-secondary {
-            background-color: var(--bg-white);
-            color: var(--primary-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: #f1f5f9;
-            transform: translateY(-2px);
-        }
-        
+        /* --- Hero Section --- */
         #hero {
-            padding: 100px 0;
+            padding: 120px 0;
             text-align: center;
         }
 
         #hero h1 {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 800;
             color: var(--text-dark);
-            margin-bottom: 20px;
-            line-height: 1.3;
+            margin-bottom: 25px;
+            line-height: 1.4;
         }
         
-        #hero h1 span {
-            color: var(--primary-color);
+        #hero h1 .highlight {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         #hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            font-size: 20px;
+            max-width: 750px;
+            margin: 0 auto 40px;
         }
         
         .hero-actions {
@@ -152,20 +161,19 @@
             gap: 20px;
         }
         
-        section {
-            padding: 80px 0;
-        }
+        /* --- General Section Styling --- */
+        section { padding: 100px 0; }
         
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
         
         .section-title h2 {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
             color: var(--text-dark);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .section-title p {
@@ -173,131 +181,101 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+
+        /* --- Infographic Flow Section --- */
+        .infographic-flow {
+            position: relative;
+            padding: 50px 0;
+        }
+        .infographic-flow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+            z-index: 1;
         }
         
-        .feature-card {
-            background-color: var(--bg-white);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            text-align: right;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            border-color: var(--primary-color);
-        }
-        
-        .feature-card .icon {
-            color: var(--primary-color);
-            width: 48px;
-            height: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-        
-        #how-it-works {
-            background-color: var(--bg-white);
-        }
-        
-        .steps-container {
+        .flow-item {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
             position: relative;
+            z-index: 2;
         }
-
-        .step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-        }
-
-        .step .icon-container {
+        
+        .flow-item:nth-child(even) { flex-direction: row-reverse; }
+        
+        .flow-content { flex: 1; }
+        .flow-item:nth-child(odd) .flow-content { padding-left: 60px; }
+        .flow-item:nth-child(even) .flow-content { padding-right: 60px; text-align: left; }
+        
+        .flow-icon-wrapper {
+            flex-shrink: 0;
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background-color: #e0e7ff;
-            color: var(--primary-color);
+            background-color: var(--bg-light);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 20px;
-            border: 4px solid var(--bg-white);
-            box-shadow: 0 0 0 2px var(--primary-color);
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 0 5px var(--bg-light);
         }
+        .flow-item:nth-child(even) .flow-icon-wrapper { border-color: var(--secondary-color); }
         
-        .step .icon {
-             width: 40px;
-             height: 40px;
+        .flow-icon-wrapper .icon {
+            width: 40px;
+            height: 40px;
+            color: var(--primary-color);
         }
-        
-        .step h3 {
-            font-size: 22px;
-            font-weight: 600;
+        .flow-item:nth-child(even) .flow-icon-wrapper .icon { color: var(--secondary-color); }
+
+        .flow-content h3 {
+            font-size: 24px;
+            font-weight: 700;
             color: var(--text-dark);
             margin-bottom: 10px;
         }
 
-        #demo {
-            background-color: #eef2ff;
-        }
-
+        /* --- Demo Section --- */
+        #demo { background-color: var(--bg-white); }
         .demo-container {
             display: flex;
-            gap: 40px;
+            gap: 60px;
             align-items: center;
         }
-
-        .demo-text {
-            flex: 1;
-        }
-
-        .demo-text h2 {
-             font-size: 36px;
-             font-weight: 700;
-             color: var(--text-dark);
-             margin-bottom: 20px;
-        }
-        
-        .demo-text p {
-             font-size: 18px;
-             margin-bottom: 30px;
-        }
+        .demo-text { flex: 1; }
+        .demo-chat-wrapper { flex: 1; perspective: 1000px; }
 
         .demo-chat-window {
-            flex: 1;
-            max-width: 400px;
-            height: 500px;
+            min-width: 360px;
+            height: 600px;
             background-color: var(--bg-white);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             border: 1px solid var(--border-color);
+            transform: rotateY(-10deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        .demo-chat-wrapper:hover .demo-chat-window {
+            transform: rotateY(0) rotateX(0);
         }
         
         .chat-header {
-            background-color: var(--primary-dark);
+            background: linear-gradient(to left, var(--primary-color), var(--primary-dark));
             color: white;
-            padding: 15px;
-            font-weight: 600;
-            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            text-align: right;
+            border-bottom: 1px solid var(--primary-dark);
         }
         
         .chat-body {
@@ -306,95 +284,99 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+            gap: 12px;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e5e7eb' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         
         .chat-message {
-            margin-bottom: 15px;
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 18px;
-            line-height: 1.5;
+            max-width: 85%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            line-height: 1.6;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(20px);
             animation: fadeIn 0.5s forwards;
+            font-size: 15px;
         }
         
         .chat-message.bot {
-            background-color: #f1f5f9;
+            background-color: #e5e7eb;
             color: var(--text-dark);
-            border-bottom-right-radius: 4px;
+            border-bottom-right-radius: 5px;
             align-self: flex-start;
         }
 
         .chat-message.user {
             background-color: var(--primary-color);
             color: white;
-            border-bottom-left-radius: 4px;
+            border-bottom-left-radius: 5px;
             align-self: flex-end;
         }
         
         .typing-indicator {
             display: flex;
             align-items: center;
-            padding: 10px 15px;
+            gap: 5px;
         }
-        
         .typing-indicator span {
-            height: 8px;
-            width: 8px;
-            background-color: #94a3b8;
+            height: 9px;
+            width: 9px;
+            background-color: #9ca3af;
             border-radius: 50%;
-            display: inline-block;
-            margin: 0 2px;
-            animation: bounce 1s infinite;
+            animation: bounce 1.2s infinite ease-in-out;
         }
-        
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
         .chat-actions {
-            padding: 10px 20px 20px;
+            padding: 15px;
             border-top: 1px solid var(--border-color);
+            background-color: var(--bg-white);
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 10px;
         }
         
         .chat-action-button {
-            width: 100%;
-            padding: 10px;
+            padding: 8px 15px;
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
             background: none;
-            border-radius: 8px;
+            border-radius: 20px;
             cursor: pointer;
+            font-family: var(--font-sans);
             font-weight: 500;
             transition: all 0.2s ease;
+            font-size: 14px;
         }
-        
-        .chat-action-button:hover {
-            background-color: #e0e7ff;
-        }
-        
+        .chat-action-button:hover { background-color: #eef2ff; }
         .chat-action-button:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
+            background-color: transparent;
         }
         
-        #faq {
-            background-color: var(--bg-white);
-        }
-        
+        /* --- FAQ Section --- */
         .faq-item {
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 0;
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
         
+        .faq-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
         .faq-question {
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+            padding: 20px 25px;
             font-size: 18px;
             font-weight: 600;
             color: var(--text-dark);
@@ -403,86 +385,133 @@
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.5s ease;
-            padding: 0 10px;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
         }
         
         .faq-answer p {
             margin: 0;
-            padding-top: 15px;
+            padding: 0 25px 25px;
         }
         
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            padding-bottom: 10px;
-        }
+        .faq-item.active .faq-answer { max-height: 200px; }
         
         .faq-toggle {
-            font-size: 24px;
-            font-weight: bold;
-            transition: transform 0.3s ease;
+            font-size: 28px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--primary-color);
+            font-weight: 300;
         }
         
-        .faq-item.active .faq-toggle {
-            transform: rotate(45deg);
-        }
+        .faq-item.active .faq-toggle { transform: rotate(135deg); }
 
+        /* --- CTA Section --- */
         #cta {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
             color: white;
             text-align: center;
+            border-radius: 20px;
+            margin: 0 auto;
+            max-width: 1100px;
+            padding: 80px 40px;
         }
 
         #cta h2 {
-            font-size: 32px;
+            font-size: 38px;
             font-weight: 700;
             color: white;
             margin-bottom: 30px;
         }
+        #cta .btn {
+            background-color: white; 
+            color: var(--primary-color); 
+            padding: 18px 36px; 
+            font-size: 18px;
+        }
+        #cta .btn:hover {
+             background-color: var(--bg-light);
+             transform: translateY(-3px) scale(1.05);
+        }
         
+        /* --- Footer --- */
         footer {
-            background-color: var(--text-dark);
-            color: #cbd5e1;
-            padding: 40px 0;
+            padding: 60px 0;
             text-align: center;
+            font-size: 14px;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links, .navbar .btn {
-                display: none; /* Simple hiding for mobile, can be replaced with a hamburger menu */
-            }
-            #hero h1 { font-size: 36px; }
-            #hero p { font-size: 16px; }
-            .section-title h2 { font-size: 28px; }
-            .steps-container { flex-direction: column; align-items: center; }
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
             .demo-container { flex-direction: column; }
-            .demo-chat-window { height: 450px; }
+            .demo-chat-window { transform: none; }
+            .demo-chat-wrapper:hover .demo-chat-window { transform: none; }
+            #hero h1 { font-size: 44px; }
         }
-
-        /* Animations */
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            #hero h1 { font-size: 38px; }
+            #hero p { font-size: 18px; }
+            .section-title h2 { font-size: 32px; }
+            
+            .infographic-flow::before { right: 20px; transform: none; }
+            .flow-item, .flow-item:nth-child(even) { flex-direction: row; }
+            .flow-item:nth-child(odd) .flow-content, .flow-item:nth-child(even) .flow-content {
+                padding-left: 0;
+                padding-right: 25px;
+                text-align: right;
+            }
+            .flow-item {
+                /* Invert order for content to appear after icon */
+                flex-direction: row-reverse;
+            }
+        }
+        
+        /* --- Animations --- */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-6px); }
+        }
+        
+        @keyframes background-pulse {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.2); opacity: 0.5; }
         }
 
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
-<link rel="stylesheet" href="/index.css">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "vite": "https://esm.sh/vite@^7.1.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.0.0"
+  }
+}
+</script>
 </head>
 <body>
-    <header>
+    <header class="main-header">
         <div class="container navbar">
             <a href="#" class="logo">Aiolexa</a>
             <nav>
                 <ul class="nav-links">
                     <li><a href="#features">ویژگی‌ها</a></li>
-                    <li><a href="#how-it-works">نحوه کار</a></li>
-                    <li><a href="#demo">دمو</a></li>
+                    <li><a href="#demo">دموی زنده</a></li>
                     <li><a href="#faq">سوالات متداول</a></li>
                 </ul>
             </nav>
@@ -493,83 +522,58 @@
     <main>
         <section id="hero">
             <div class="container">
-                <h1>وب‌سایت وردپرسی خود را به یک <span>دستیار هوشمند</span> مجهز کنید</h1>
-                <p>با قدرت Google Gemini، به سوالات کاربران فوراً پاسخ دهید، فروش خود را افزایش دهید و پشتیبانی مشتریان را ۲۴ ساعته و بدون وقفه متحول کنید.</p>
-                <div class="hero-actions">
+                <h1 class="reveal">هوش مصنوعی <span class="highlight">Gemini</span><br> برای وب‌سایت وردپرسی شما</h1>
+                <p class="reveal" style="transition-delay: 0.2s;">با Aiolexa، به سوالات کاربران فوراً پاسخ دهید، فروش خود را افزایش دهید و پشتیبانی مشتریان را ۲۴ ساعته و بدون وقفه متحول کنید.</p>
+                <div class="hero-actions reveal" style="transition-delay: 0.4s;">
                     <a href="#demo" class="btn btn-primary">مشاهده دموی زنده</a>
-                    <a href="#cta" class="btn btn-secondary">شروع استفاده</a>
                 </div>
             </div>
         </section>
 
-        <section id="features">
-            <div class="container">
-                <div class="section-title">
-                    <h2>چرا چت‌بات Aiolexa؟</h2>
-                    <p>ما بهترین تکنولوژی‌ها را ترکیب کرده‌ایم تا ابزاری قدرتمند و در عین حال ساده برای رشد کسب‌وکار شما فراهم کنیم.</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.375a6.375 6.375 0 006.375-6.375h.038a6.375 6.375 0 00-6.375-6.375a6.375 6.375 0 00-6.375 6.375h-.038a6.375 6.375 0 006.375 6.375zM12 21a8.25 8.25 0 01-8.25-8.25H3a9.75 9.75 0 019-9.75 9.75 9.75 0 019 9.75h-.75A8.25 8.25 0 0112 21z" /></svg>
-                        <h3>موتور هوشمند Gemini</h3>
-                        <p>پاسخ‌های دقیق، طبیعی و به‌روز با استفاده از پیشرفته‌ترین مدل زبان گوگل (`gemini-2.5-flash`).</p>
+        <section id="features" class="container">
+            <div class="section-title reveal">
+                <h2>یک دستیار هوشمند، نه یک ربات معمولی</h2>
+                <p>ما بهترین تکنولوژی‌ها را ترکیب کرده‌ایم تا ابزاری قدرتمند و در عین حال ساده برای رشد کسب‌وکار شما فراهم کنیم.</p>
+            </div>
+            
+            <div class="infographic-flow">
+                <div class="flow-item reveal">
+                     <div class="flow-content">
+                        <h3>۱. نصب آسان در ۵ دقیقه</h3>
+                        <p>افزونه را نصب کنید، کلید API رایگان خود را از Google AI Studio وارد کنید و تمام! چت‌بات شما آماده خدمت‌رسانی است. بدون نیاز به هیچ‌گونه کدنویسی.</p>
                     </div>
-                    <div class="feature-card">
-                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
-                        <h3>پایگاه دانش سفارشی</h3>
-                        <p>ربات را با محتوای وب‌سایت خودتان آموزش دهید تا پاسخ‌هایی کاملاً مرتبط با کسب‌وکار شما ارائه دهد.</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.75 9.75 0 10-12.013-1.482l-2.094 2.093a.75.75 0 001.06 1.06l2.094-2.093A9.703 9.703 0 0012 21.75c1.45 0 2.82-.31 4.093-.872z" /></svg>
-                        <h3>پشتیبانی انسانی یکپارچه</h3>
-                        <p>کاربران می‌توانند هر لحظه درخواست صحبت با اپراتور انسانی را ثبت کنند و شما از طریق پنل وردپرس پاسخ دهید.</p>
-                    </div>
-                     <div class="feature-card">
+                    <div class="flow-icon-wrapper">
                          <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
-                        <h3>نصب و راه‌اندازی آسان</h3>
-                        <p>بدون نیاز به دانش کدنویسی، افزونه را در کمتر از ۵ دقیقه نصب و فعال کنید.</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.47 2.118a2.25 2.25 0 01-2.47-2.118c0-.62.28-1.2.752-1.57a3.755 3.755 0 012.21-1.128 3.75 3.75 0 014.288 1.128zm7.56-2.218a3.75 3.75 0 00-4.288-1.128 3.755 3.755 0 00-2.21 1.128 3.001 3.001 0 015.78 1.128 2.25 2.25 0 002.47 2.118 2.25 2.25 0 002.47-2.118c0-.62-.28-1.2-.752-1.57z" /></svg>
-                        <h3>شخصی‌سازی کامل ظاهر</h3>
-                        <p>رنگ‌بندی و موقعیت ویجت چت را مطابق با هویت بصری برند و وب‌سایت خود تغییر دهید.</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <h3>پاسخگویی ۲۴/۷</h3>
-                        <p>رضایت مشتریان را افزایش دهید و حتی خارج از ساعات کاری، فرصت‌های فروش را از دست ندهید.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+                
+                <div class="flow-item reveal">
+                    <div class="flow-content">
+                        <h3>۲. قدرت گرفته از Gemini 2.5 Flash</h3>
+                        <p>از پیشرفته‌ترین و سریع‌ترین مدل زبان گوگل برای ارائه پاسخ‌های دقیق، طبیعی و به‌روز به کاربران خود بهره ببرید. مکالماتی هوشمند که منجر به رضایت مشتری می‌شود.</p>
+                    </div>
+                    <div class="flow-icon-wrapper">
+                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.375a6.375 6.375 0 006.375-6.375h.038a6.375 6.375 0 00-6.375-6.375a6.375 6.375 0 00-6.375 6.375h-.038a6.375 6.375 0 006.375 6.375zM12 21a8.25 8.25 0 01-8.25-8.25H3a9.75 9.75 0 019-9.75 9.75 9.75 0 019 9.75h-.75A8.25 8.25 0 0112 21z" /></svg>
+                    </div>
+                </div>
 
-        <section id="how-it-works">
-            <div class="container">
-                <div class="section-title">
-                    <h2>راه‌اندازی در کمتر از ۵ دقیقه</h2>
-                    <p>فرآیند فعال‌سازی چت‌بات در سایت شما بسیار ساده و سریع است.</p>
+                <div class="flow-item reveal">
+                    <div class="flow-content">
+                        <h3>۳. آموزش با دانش کسب‌وکار شما</h3>
+                        <p>به سادگی به ربات اجازه دهید محتوای وب‌سایت شما (نوشته‌ها و برگه‌ها) را بخواند. ربات از محصولات و خدمات شما آگاه شده و پاسخ‌هایی کاملاً سفارشی و مرتبط ارائه می‌دهد.</p>
+                    </div>
+                     <div class="flow-icon-wrapper">
+                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                    </div>
                 </div>
-                <div class="steps-container">
-                    <div class="step">
-                        <div class="icon-container">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-                        </div>
-                        <h3>۱. نصب افزونه</h3>
-                        <p>افزونه را از مخزن وردپرس یا وب‌سایت ما دانلود و مانند هر افزونه دیگری نصب و فعال کنید.</p>
+
+                <div class="flow-item reveal">
+                    <div class="flow-content">
+                        <h3>۴. پل ارتباطی با پشتیبانی انسانی</h3>
+                        <p>هیچوقت مشتری را تنها نگذارید. کاربران می‌توانند هر لحظه با یک کلیک درخواست صحبت با اپراتور انسانی را ثبت کنند و شما از طریق پنل وردپرس پاسخ دهید.</p>
                     </div>
-                     <div class="step">
-                        <div class="icon-container">
-                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
-                        </div>
-                        <h3>۲. وارد کردن کلید API</h3>
-                        <p>کلید API رایگان خود را از Google AI Studio دریافت کرده و در پنل تنظیمات افزونه وارد نمایید.</p>
-                    </div>
-                     <div class="step">
-                        <div class="icon-container">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.25a14.98 14.98 0 00-5.84 7.38m5.84 2.58v-4.8m0 4.8a14.98 14.98 0 01-6.16-12.12A14.98 14.98 0 019.63 2.25a14.98 14.98 0 015.84 7.38m-5.84 2.58H1.63m13.96 0A14.98 14.98 0 019.63 2.25M19.5 14.25v4.8m-4.8-4.8a14.98 14.98 0 01-3.36 6.15" /></svg>
-                        </div>
-                        <h3>۳. فعال‌سازی و لذت بردن</h3>
-                        <p>چت‌بات شما آماده است! ویجت چت به صورت خودکار در سایت شما نمایش داده می‌شود و آماده پاسخگویی است.</p>
+                    <div class="flow-icon-wrapper">
+                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.75 9.75 0 10-12.013-1.482l-2.094 2.093a.75.75 0 001.06 1.06l2.094-2.093A9.703 9.703 0 0012 21.75c1.45 0 2.82-.31 4.093-.872z" /></svg>
                     </div>
                 </div>
             </div>
@@ -577,73 +581,75 @@
 
         <section id="demo">
             <div class="container demo-container">
-                <div class="demo-text">
-                    <h2>همین حالا امتحان کنید!</h2>
-                    <p>قدرت پاسخگویی آنی و هوشمند را از نزدیک تجربه کنید. با این دموی تعاملی، ببینید چت‌بات چگونه می‌تواند به سوالات متداول کاربران شما پاسخ دهد.</p>
-                </div>
-                <div class="demo-chat-window" id="chat-demo">
-                    <div class="chat-header">دستیار هوشمند Aiolexa</div>
-                    <div class="chat-body" id="chat-body">
-                        <!-- Messages will be injected here by JS -->
+                <div class="demo-text reveal">
+                    <div class="section-title" style="text-align: right; margin-bottom: 20px;">
+                        <h2>قدرت را از نزدیک لمس کنید</h2>
+                        <p>با این دموی تعاملی، ببینید چت‌بات چگونه می‌تواند به سوالات متداول کاربران شما پاسخ دهد و آن‌ها را به سمت خرید هدایت کند.</p>
                     </div>
-                    <div class="chat-actions" id="chat-actions">
-                        <!-- Action buttons will be injected here by JS -->
+                </div>
+                <div class="demo-chat-wrapper reveal" style="transition-delay: 0.2s;">
+                    <div class="demo-chat-window" id="chat-demo">
+                        <div class="chat-header">دستیار هوشمند Aiolexa</div>
+                        <div class="chat-body" id="chat-body">
+                            <!-- Messages will be injected here by JS -->
+                        </div>
+                        <div class="chat-actions" id="chat-actions">
+                            <!-- Action buttons will be injected here by JS -->
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section id="faq">
-            <div class="container" style="max-width: 800px;">
-                 <div class="section-title">
-                    <h2>سوالات متداول</h2>
-                    <p>پاسخ سوالات رایج در مورد افزونه را اینجا پیدا کنید.</p>
+        <section id="faq" class="container">
+             <div class="section-title reveal">
+                <h2>سوالات متداول</h2>
+                <p>پاسخ سوالات رایج در مورد افزونه را اینجا پیدا کنید.</p>
+            </div>
+            <div class="faq-list" style="max-width: 800px; margin: auto;">
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <span>آیا برای نصب به دانش برنامه‌نویسی نیاز دارم؟</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>خیر. این افزونه طوری طراحی شده که هر کسی با دانش پایه وردپرس بتواند آن را به راحتی نصب، پیکربندی و استفاده کند. هیچ نیازی به یک خط کدنویسی نیست.</p>
+                    </div>
                 </div>
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>آیا برای نصب به دانش برنامه‌نویسی نیاز دارم؟</span>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>خیر. این افزونه طوری طراحی شده که هر کسی با دانش پایه وردپرس بتواند آن را به راحتی نصب، پیکربندی و استفاده کند. هیچ نیازی به یک خط کدنویسی نیست.</p>
-                        </div>
+                 <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <span>هزینه استفاده از Google Gemini API چقدر است؟</span>
+                        <span class="faq-toggle">+</span>
                     </div>
-                     <div class="faq-item">
-                        <div class="faq-question">
-                            <span>هزینه استفاده از Google Gemini API چقدر است؟</span>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>گوگل یک طرح رایگان بسیار سخاوتمندانه برای Gemini API ارائه می‌دهد که برای بسیاری از وب‌سایت‌های با ترافیک متوسط کافی است. برای اطلاعات دقیق‌تر در مورد قیمت‌گذاری، می‌توانید به وب‌سایت Google AI Studio مراجعه کنید.</p>
-                        </div>
+                    <div class="faq-answer">
+                        <p>گوگل یک طرح رایگان بسیار سخاوتمندانه برای Gemini API ارائه می‌دهد که برای بسیاری از وب‌سایت‌های با ترافیک متوسط کافی است. برای اطلاعات دقیق‌تر در مورد قیمت‌گذاری، می‌توانید به وب‌سایت Google AI Studio مراجعه کنید.</p>
                     </div>
-                     <div class="faq-item">
-                        <div class="faq-question">
-                            <span>آیا این افزونه با قالب سایت من سازگار است؟</span>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>بله، افزونه ما با تمام قالب‌های استاندارد وردپرس که به درستی کدنویسی شده‌اند، سازگار است. ویجت چت به صورت یک عنصر شناور به سایت اضافه می‌شود و با طراحی شما تداخلی ایجاد نمی‌کند.</p>
-                        </div>
+                </div>
+                 <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <span>آیا این افزونه با قالب سایت من سازگار است؟</span>
+                        <span class="faq-toggle">+</span>
                     </div>
-                     <div class="faq-item">
-                        <div class="faq-question">
-                            <span>آیا اطلاعات مکالمات کاربران امن است؟</span>
-                            <span class="faq-toggle">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>بله. در صورت فعال‌سازی، تمام تاریخچه مکالمات به صورت امن در دیتابیس وردپرس **شما** ذخیره می‌شود و ما به هیچ‌یک از اطلاعات شما دسترسی نداریم. حریم خصوصی اولویت ماست.</p>
-                        </div>
+                    <div class="faq-answer">
+                        <p>بله، افزونه ما با تمام قالب‌های استاندارد وردپرس که به درستی کدنویسی شده‌اند، سازگار است. ویجت چت به صورت یک عنصر شناور به سایت اضافه می‌شود و با طراحی شما تداخلی ایجاد نمی‌کند.</p>
+                    </div>
+                </div>
+                 <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <span>آیا اطلاعات مکالمات کاربران امن است؟</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>بله. در صورت فعال‌سازی، تمام تاریخچه مکالمات به صورت امن در دیتابیس وردپرس **شما** ذخیره می‌شود و ما به هیچ‌یک از اطلاعات شما دسترسی نداریم. حریم خصوصی اولویت ماست.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="cta">
-            <div class="container">
+        <section id="cta-wrapper" class="container">
+            <div id="cta" class="reveal">
                 <h2>آماده‌اید تا وب‌سایت خود را هوشمند کنید؟</h2>
-                <a href="#" class="btn btn-primary" style="background-color: white; color: var(--primary-color); padding: 15px 30px; font-size: 18px;">افزونه را همین حالا دریافت کنید</a>
+                <a href="#" class="btn btn-primary">افزونه را همین حالا دریافت کنید</a>
             </div>
         </section>
     </main>
@@ -655,25 +661,43 @@
     </footer>
 
     <script>
-        // FAQ Accordion
+        // --- On-Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: unobserve after revealing
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
+
+
+        // --- FAQ Accordion ---
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
             question.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
-                faqItems.forEach(i => i.classList.remove('active'));
+                // Close all others
+                // faqItems.forEach(i => i.classList.remove('active'));
                 if (!isActive) {
                     item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
                 }
             });
         });
 
-        // Mock Chat Demo
+        // --- Mock Chat Demo Logic ---
         const chatBody = document.getElementById('chat-body');
         const chatActions = document.getElementById('chat-actions');
         
         const demoScenario = [
-            {
+            { // 0: Initial
                 type: 'bot',
                 text: 'سلام! من دستیار هوشمند شما هستم. چطور می‌توانم کمکتان کنم؟',
                 actions: [
@@ -681,7 +705,7 @@
                     { text: 'ساعات کاری شما؟', next: 2 }
                 ]
             },
-            {
+            { // 1: User asks about products
                 type: 'user',
                 text: 'محصولات شما چیست؟',
                 responses: [
@@ -695,7 +719,7 @@
                     }
                 ]
             },
-            {
+            { // 2: User asks about working hours
                 type: 'user',
                 text: 'ساعات کاری شما؟',
                 responses: [
@@ -709,20 +733,20 @@
                     }
                 ]
             },
-            {
+            { // 3: User asks about pricing
                 type: 'user',
                 text: 'عالی! قیمت‌گذاری چطور است؟',
                 responses: [
                      {
                         type: 'bot',
-                        text: 'افزونه اصلی رایگان است و شما تنها هزینه استفاده از API گوگل را پرداخت می‌کنید که آن هم طرح رایگان دارد. برای ویژگی‌های پیشرفته، می‌توانید به وب‌سایت ما مراجعه کنید.',
+                        text: 'افزونه اصلی رایگان است و شما تنها هزینه استفاده از API گوگل را پرداخت می‌کنید که آن هم طرح رایگان سخاوتمندانه‌ای دارد. برای ویژگی‌های پیشرفته‌تر، می‌توانید به وب‌سایت ما مراجعه کنید.',
                         actions: [
                             { text: 'برگردیم به اول', next: 0 }
                         ]
                     }
                 ]
             },
-            {
+            { // 4: User says thanks
                 type: 'user',
                 text: 'ممنون از راهنمایی',
                  responses: [
@@ -773,9 +797,18 @@
         }
 
         function handleActionClick(nextNodeIndex) {
+            // Find the scenario entry for the user's choice
             const userChoice = demoScenario[nextNodeIndex];
             
             disableActions();
+
+            // If the next node is just a bot response (like going back to start)
+            if (userChoice.type === 'bot') {
+                 startDemo();
+                 return;
+            }
+            
+            // Add the user's message to the chat
             addMessage('user', userChoice.text);
             
             const typingIndicator = showTypingIndicator();
@@ -795,8 +828,8 @@
             updateActions(initialStep.actions);
         }
 
+        // Initialize the demo on page load
         startDemo();
     </script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>
